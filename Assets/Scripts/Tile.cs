@@ -13,7 +13,7 @@ public class Tile : MonoBehaviour
     
     void Start()
     {
-        
+        Debug.Log("camp fred");
     }
 
     // Update is called once per frame
