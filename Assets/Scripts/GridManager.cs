@@ -6,6 +6,7 @@ public class GridManager : MonoBehaviour
 {
 public int rows;
 public int columns;
+public Tile[] boardTiles;
 private float tileSize = 1;
 
 
@@ -14,6 +15,8 @@ private float tileSize = 1;
     {
         Debug.Log("Tan me high, Fred");
         GenerateGrid();
+
+        
     }
 
     /**
@@ -28,13 +31,22 @@ private float tileSize = 1;
             for (int col = 0; col < columns; col++){
 
                 //Make tile from reference object
-                GameObject tile = (GameObject)Instantiate(referenceTile, transform);
+                //GameObject tile = (GameObject)Instantiate(referenceTile, transform);
 
-                //Assign object position
+                //make new object
+                Tile newTile = gameObject.AddComponent<Tile>() as Tile;
+
+                //set new tile position
+                newTile.Instance.tilePosition.x = col;
+                newTile.Instance.tilePosition.y = row;
+
+                //Assign object coordinates
                 float positionX = col * tileSize;
                 float positionY = row * -tileSize;
 
-                tile.transform.position = new Vector2(positionX, positionY);
+                newTile.Instance.tileCoordinates = new Vector2(positionX, positionY);
+
+                newTile.transform.position = newTile.Instance.tileCoordinates;
             }
         }
 
