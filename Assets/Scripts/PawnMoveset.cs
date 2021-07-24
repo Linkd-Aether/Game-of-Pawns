@@ -31,25 +31,25 @@ public class PawnMoveset : Moveset
     /**
     Calculates which squares are legal for this piece to move on its turn
     */
-    override public List<Vector2Int> GetMoves(GridManager board, Vector2Int location, bool isEnemy, bool moved){
+    override public List<Vector2Int> GetMoves(Piece piece){
         List<Vector2Int> moves = new List<Vector2Int>();
         Vector2Int direction = Vector2Int.up;
-        if (isEnemy){
+        if (piece.isEnemy){
             direction = Vector2Int.down;
         }
-        Vector2Int current = location + direction;
+        Vector2Int current = piece.location + direction;
         if (/**current is a valid space and there is no piece there*/false){
-            moves.Add(location + direction);
+            moves.Add(piece.location + direction);
             current += direction;
-            if (!moved && /**current is a valid space and there is no piece there*/false){
-                moves.Add(location + direction * 2);
+            if (!piece.moved && /**current is a valid space and there is no piece there*/false){
+                moves.Add(piece.location + direction * 2);
             }
         }
         if (/**left diagonal is an enemy*/false){
-            moves.Add(location + direction + new Vector2Int(-1, 0));
+            moves.Add(piece.location + direction + new Vector2Int(-1, 0));
         }
         if (/**right diagonal is an enemy*/false){
-            moves.Add(location + direction + new Vector2Int(1, 0));
+            moves.Add(piece.location + direction + new Vector2Int(1, 0));
         }
         return moves;
     }
