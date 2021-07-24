@@ -6,7 +6,7 @@ public class Tile : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public Sprite tileSprite;
+    public SpriteRenderer spriteRenderer;
     public bool isTraversable;
     public Piece pieceOnTile;
     public Vector2 tilePosition;
@@ -22,12 +22,28 @@ public class Tile : MonoBehaviour
         } else if(Instance != this){
             Destroy(gameObject);
         }
-        tileSprite = Resources.Load("whiteTile") as Sprite;
+        gameObject.AddComponent<SpriteRenderer>();
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+     
+        
+               
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void renderSprite(){
+        int tilePosSum = (int)(tilePosition.x + tilePosition.y);
+
+        Debug.Log(tilePosSum);
+
+        if(((tilePosition.x + tilePosition.y) % 2) == 0){
+            spriteRenderer.sprite = Resources.Load<Sprite>("blackTile");
+        } else {
+            spriteRenderer.sprite = Resources.Load<Sprite>("whiteTile");
+        }
     }
 }
