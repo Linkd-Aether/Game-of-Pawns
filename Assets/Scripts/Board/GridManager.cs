@@ -6,6 +6,7 @@ public class GridManager : MonoBehaviour
 {
 public int rows;
 public int columns;
+public Tile[,] boardArray;
 public List<Tile> boardTiles = new List<Tile>();
 private float tileSize = 1;
 
@@ -21,6 +22,10 @@ private float tileSize = 1;
     structure is largely down
     */
     private void GenerateGrid() {
+
+        //Specify boardArray dimensions
+        boardArray = new Tile[columns, rows];
+
         for (int row = 0; row < rows; row++){
             for (int col = 0; col < columns; col++){
 
@@ -52,7 +57,9 @@ private float tileSize = 1;
                 //Instantiate(tile, new Vector3(positionX, positionY, 0), Quaternion.identity);
                 //newTile.transform.position = new Vector2(positionX, positionY);
                 getTile.renderSprite();
-                boardTiles.Add(getTile);
+
+                boardArray[col, row] = getTile;
+                //boardTiles.Add(getTile);
             }
         }
     }
