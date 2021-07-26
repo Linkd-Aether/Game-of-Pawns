@@ -15,6 +15,8 @@ public class CursorController : MonoBehaviour
 
     private CursorControls controls;
 
+    public Action currentAction;
+
     private Camera mainCamera;
     // Start is called before the first frame update
     private void Awake()

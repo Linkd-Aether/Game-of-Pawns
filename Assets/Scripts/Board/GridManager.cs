@@ -64,6 +64,13 @@ private float tileSize = 1;
         }
     }
 
+    /*
+    Gets a tile from the board
+    */
+    public Tile getTileFromBoard(int col, int row){
+        return boardArray[col, row];
+    }
+
     // Update is called once per frame
     private void Update()
     {
