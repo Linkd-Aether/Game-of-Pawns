@@ -9,7 +9,10 @@ public class Player : MonoBehaviour
     bool isDead;
 
     private Vector2[] playerMoveset;
+    private Vector2[] playerLocation;
     private int[] capturedPieces;
+
+    private bool isPlayerTurn = false;
 
     void Start()
     {
@@ -19,6 +22,11 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(isPlayerTurn){
+            foreach (Vector2 move in playerMoveset){
+
+            }
+        }
         
     }
 }
