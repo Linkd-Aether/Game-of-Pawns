@@ -33,20 +33,28 @@ public class RookMoveset : Moveset
     */
     override public List<Vector2Int> GetMoves(Piece piece){
         List<Vector2Int> moves = new List<Vector2Int>();
+        // directions are all four cardinal directions
         Vector2Int[] directions = {
             new Vector2Int(-1, 0), new Vector2Int(1, 0), new Vector2Int(0, -1), new Vector2Int(0, 1)
         };
-        // TODO use board methods to complete rook's GetMoves method
+
+        // for each direction, add valid moves until reaching a piece or space without a tile
         foreach (Vector2Int direction in directions){
             Vector2Int current = piece.location + direction;
-            while(/**Space is on map, and there is no obstacle or friendly piece*/false){
+            Tile tile = board.getTileFromBoard(current);
+            // as long as the current tile exits and is empty, add it and look at the next one
+            while (tile != null && tile.pieceOnTile == null){
                 moves.Add(current);
                 current += direction;
-                if (/**an enemy is on the space*/false){
-                    break;
-                }
+                tile = board.getTileFromBoard(current);
+            }
+
+            // if the first non-empty space had an enemy, include it too
+            if (tile.pieceOnTile.isOppositeSide(piece.isEnemy)){
+                moves.Add(current);
             }
         }
+
         return moves;
     }
 }

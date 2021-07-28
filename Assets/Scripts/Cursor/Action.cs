@@ -2,17 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class Action
+public class Action
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public CursorController cursorController;
+
+    /**
+    Constructs the action with a reference to the cursor controller
+    */
+    public Action(CursorController controller){
+        cursorController = controller;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    /**
+    Selects a friendly piece on the clicked square, if there is one
+    */
+    virtual public void onClick(Tile tile){
+        Debug.Log("Clicked");
+        if (tile != null && tile.pieceOnTile != null && tile.pieceOnTile.isEnemy == false){
+            cursorController.currentAction = new MoveAction(cursorController, tile.pieceOnTile);
+        }
+        else{
+            cursorController.currentAction = new Action(cursorController);
+        }
     }
 }

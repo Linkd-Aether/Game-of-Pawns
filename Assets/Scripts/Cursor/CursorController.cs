@@ -14,7 +14,7 @@ public class CursorController : MonoBehaviour
     private Texture2D cursorClicked;
 
     private CursorControls controls;
-
+    
     public Action currentAction;
 
     private Camera mainCamera;
@@ -39,6 +39,9 @@ public class CursorController : MonoBehaviour
 
     private void Start(){
 
+        currentAction = new Action(this);
+        Debug.Log("current action initialized: " + currentAction);
+
         //On these actions, call these functions
         controls.Mouse.Click.started += _ => StartedClick();
         controls.Mouse.Click.performed += _ => EndedClick();
@@ -51,6 +54,7 @@ public class CursorController : MonoBehaviour
 
     //Change cursor sprite to unclicked sprite
     private void EndedClick(){
+        Debug.Log("Ended Click");
         ChangeCursor(cursor);
         DetectObject();
     }
@@ -61,9 +65,10 @@ public class CursorController : MonoBehaviour
         Ray ray = mainCamera.ScreenPointToRay(controls.Mouse.Position.ReadValue<Vector2>());
 
         //Detects what a ray hits
+        IClicked click = null;
         RaycastHit2D hits2D = Physics2D.GetRayIntersection(ray);
         if(hits2D.collider != null){
-            IClicked click = hits2D.collider.gameObject.GetComponent<IClicked>();
+            click = hits2D.collider.gameObject.GetComponent<IClicked>();
 
             if(click != null){
                 click.onClickAction();
@@ -71,8 +76,11 @@ public class CursorController : MonoBehaviour
 
             Debug.Log("Hit2D collider: " + hits2D.collider.tag);
         } else {
-            Debug.Log("Fuck");
+            //Debug.Log("F*ck");
         }
+
+        Debug.Log("calling current action's onClick Event");
+        currentAction.onClick(click as Tile);
     }
 
     //Change cursor sprite on and off click

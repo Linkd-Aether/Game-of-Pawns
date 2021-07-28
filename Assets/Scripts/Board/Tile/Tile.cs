@@ -10,14 +10,14 @@ public class Tile : MonoBehaviour, IClicked
     public BoxCollider2D boxCollider;
     public bool isTraversable;
     public Piece pieceOnTile;
-    public Vector2 tilePosition;
+    public Vector2Int tilePosition;
     public Vector2 tileCoordinates;
 
     public Tile Instance = null;
     
     void Awake()
     {
-        Debug.Log("camp fred");
+        //Debug.Log("camp fred");
         if(Instance == null){
             Instance = this;
         } else if(Instance != this){
