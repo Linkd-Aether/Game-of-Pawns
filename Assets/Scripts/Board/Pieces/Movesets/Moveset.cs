@@ -8,7 +8,7 @@ abstract public class Moveset : ScriptableObject
     public static GridManager board;
 
     public void OnEnable(){
-        board = GameObject.FindObjectOfType<GridManager>().GetComponent<GridManager>();
+        board = GridManager.Instance;
     }
 
     /**

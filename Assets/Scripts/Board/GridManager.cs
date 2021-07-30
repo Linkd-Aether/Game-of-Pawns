@@ -24,6 +24,21 @@ public class GridManager : MonoBehaviour
         GenerateGrid();
     }
 
+    private static GridManager _instance;
+
+    public static GridManager Instance { get { return _instance; } }
+
+
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        } else {
+            _instance = this;
+        }
+    }
+
     /**
     Generates a grid of tiles that we can play on, still need to generate tile objects but
     structure is largely down

@@ -40,6 +40,11 @@ public class PawnMoveset : Moveset
             direction = Vector2Int.down;
         }
 
+        if(board == null)
+        {
+            board = GridManager.Instance;
+        }
+
         // able to move forward if no piece is there
         Vector2Int current = piece.location + direction;
         Tile tile = board.getTileFromBoard(current);
