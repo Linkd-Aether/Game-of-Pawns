@@ -17,7 +17,6 @@ public class Tile : MonoBehaviour, IClicked
     
     void Awake()
     {
-        Debug.Log("camp fred");
         if(Instance == null){
             Instance = this;
         } else if(Instance != this){

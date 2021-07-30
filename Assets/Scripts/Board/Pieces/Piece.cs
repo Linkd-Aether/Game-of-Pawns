@@ -5,6 +5,7 @@ using UnityEngine;
 public class Piece : MonoBehaviour
 {
     public Vector2Int location;
+    public Sprite icon = null;
     public Moveset type;
     public bool isEnemy = false;
     public bool moved = false;

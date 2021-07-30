@@ -70,9 +70,7 @@ public class CursorController : MonoBehaviour
             }
 
             Debug.Log("Hit2D collider: " + hits2D.collider.tag);
-        } else {
-            Debug.Log("Fuck");
-        }
+        } 
     }
 
     //Change cursor sprite on and off click
