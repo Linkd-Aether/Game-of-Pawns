@@ -2,9 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class Moveset
+[System.Serializable]
+abstract public class Moveset : ScriptableObject
 {
-    public static GridManager board = GameObject.FindObjectOfType<GridManager>().GetComponent<GridManager>();
+    public static GridManager board;
+
+    public void OnEnable(){
+        board = GameObject.FindObjectOfType<GridManager>().GetComponent<GridManager>();
+    }
 
     /**
     Returns the name of the type of piece

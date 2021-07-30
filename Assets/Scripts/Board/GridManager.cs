@@ -5,22 +5,22 @@ using UnityEngine;
 public class GridManager : MonoBehaviour
 {
 
-// test piece instatiation
-public Piece playerPawn;
-public Piece playerRook;
-public Piece enemyPawn;
-public Piece enemyRook;
+    // test piece instatiation
+    public Piece playerPawn;
+    public Piece playerRook;
+    public Piece enemyPawn;
+    public Piece enemyRook;
 
-public int rows;
-public int columns;
-public Tile[,] boardArray;
-public List<Tile> boardTiles = new List<Tile>();
-private float tileSize = 1;
-
+    public int rows;
+    public int columns;
+    public Tile[,] boardArray;
+    private float tileSize = 1;
+    public Transform tilePrefab;
 
     // Start is called before the first frame update
     private void Start()
     {
+        boardArray = new Tile[rows, columns];
         GenerateGrid();
     }
 
@@ -30,50 +30,32 @@ private float tileSize = 1;
     */
     private void GenerateGrid() {
 
-        //Specify boardArray dimensions
-        boardArray = new Tile[columns, rows];
-
         for (int row = 0; row < rows; row++){
             for (int col = 0; col < columns; col++){
 
                 //Make tile from reference object
-                //GameObject tile = (GameObject)Instantiate(referenceTile, transform);
+                Tile tile = Instantiate(tilePrefab, transform).GetComponent<Tile>();
 
-
-                //make new object
-                GameObject tile = new GameObject();
-                tile.transform.parent = transform;
-                Tile newTile = tile.AddComponent<Tile>() as Tile;
-                Tile getTile = tile.GetComponent<Tile>();
-
-                //tile.newTile.tileSprite = Resources.Load("whiteTile") as Sprite;
-
-                //getTile.tilePosition
                 //set new tile position
-                getTile.Instance.tilePosition.x = col;
-                getTile.Instance.tilePosition.y = row;
+                tile.tilePosition.x = col;
+                tile.tilePosition.y = row;
 
                 //Assign object coordinates
                 float positionX = col * tileSize;
                 float positionY = row * tileSize;
 
-                newTile.Instance.tileCoordinates = new Vector2(positionX, positionY);
-
                 tile.transform.position = new Vector2(positionX, positionY);
                 tile.name = "Square" + col + "-" + row;
-                //newTile.tileSprite = Resources.Load("whiteTile") as Sprite;
-                //Instantiate(tile, new Vector3(positionX, positionY, 0), Quaternion.identity);
-                //newTile.transform.position = new Vector2(positionX, positionY);
-                getTile.renderSprite();
+                tile.renderSprite();
 
-                boardArray[col, row] = getTile;
-                //boardTiles.Add(getTile);
+                boardArray[col, row] = tile;
+                Debug.Log("(" + col + ", " + row + ")" + boardArray[col, row]);
             }
         }
 
         //test piece instantiation
         if (rows > 4 && columns > 4){
-            Piece pPawn = Instantiate(playerPawn, new Vector3(0, 0, 0), Quaternion.identity);
+            Piece pPawn = Instantiate(playerPawn, new Vector3(0, 0, -2), Quaternion.identity);
             pPawn.Place(new Vector2Int(0, 0));
         }
     }
@@ -85,15 +67,10 @@ private float tileSize = 1;
         if (col < 0 || col >= columns || row < 0 || row >= rows){
             return null;
         }
+        Debug.Log("col: " + col + ", row: " + row + ", boardArray size: " + boardArray);
         return boardArray[col, row];
     }
     public Tile getTileFromBoard(Vector2Int position){
         return getTileFromBoard(position.x, position.y);
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
-        
     }
 }

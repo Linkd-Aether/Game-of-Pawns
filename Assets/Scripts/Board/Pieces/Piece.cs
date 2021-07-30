@@ -24,9 +24,7 @@ public class Piece : MonoBehaviour
     public void Place(Vector2Int targetLocation){
         location = targetLocation;
         transform.position = new Vector3(targetLocation.x, targetLocation.y, -1);
-        if (board.getTileFromBoard(location) != null){
-            board.getTileFromBoard(location).pieceOnTile = null;
-        }
+        board.getTileFromBoard(location).pieceOnTile = null;
         board.getTileFromBoard(targetLocation).pieceOnTile = this;
     }
 

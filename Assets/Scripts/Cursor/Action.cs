@@ -19,10 +19,20 @@ public class Action
     virtual public void onClick(Tile tile){
         Debug.Log("Clicked");
         if (tile != null && tile.pieceOnTile != null && tile.pieceOnTile.isEnemy == false){
+            Debug.Log("clicked on one of the player's pieces");
+            onEnd();
             cursorController.currentAction = new MoveAction(cursorController, tile.pieceOnTile);
         }
         else{
+            onEnd();
             cursorController.currentAction = new Action(cursorController);
         }
+    }
+
+    /**
+    Should be called whenever the action is changed
+    */
+    virtual public void onEnd(){
+
     }
 }

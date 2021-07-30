@@ -56,31 +56,14 @@ public class CursorController : MonoBehaviour
     private void EndedClick(){
         Debug.Log("Ended Click");
         ChangeCursor(cursor);
-        DetectObject();
-    }
-
-    private void DetectObject(){
-
-        //Ray we project from the mouse
-        Ray ray = mainCamera.ScreenPointToRay(controls.Mouse.Position.ReadValue<Vector2>());
-
-        //Detects what a ray hits
-        IClicked click = null;
-        RaycastHit2D hits2D = Physics2D.GetRayIntersection(ray);
-        if(hits2D.collider != null){
-            click = hits2D.collider.gameObject.GetComponent<IClicked>();
-
-            if(click != null){
-                click.onClickAction();
-            }
-
-            Debug.Log("Hit2D collider: " + hits2D.collider.tag);
-        } else {
-            //Debug.Log("F*ck");
-        }
-
+        //DetectObject();
+        Vector2 mousePositionFloat = mainCamera.ScreenToWorldPoint(controls.Mouse.Position.ReadValue<Vector2>());
+        Debug.Log("mousePositionFloat: " + mousePositionFloat);
+        Vector2Int mousePosition = new Vector2Int(Mathf.FloorToInt(mousePositionFloat.x), Mathf.FloorToInt(mousePositionFloat.y));
+        Tile tile = GridManager.FindObjectOfType<GridManager>().GetComponent<GridManager>().getTileFromBoard(mousePosition);
         Debug.Log("calling current action's onClick Event");
-        currentAction.onClick(click as Tile);
+        Debug.Log("passing " + tile);
+        currentAction.onClick(tile);
     }
 
     //Change cursor sprite on and off click
