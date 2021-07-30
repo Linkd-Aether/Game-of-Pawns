@@ -2,8 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class Moveset
+[System.Serializable]
+abstract public class Moveset : ScriptableObject
 {
+    public static GridManager board;
+
+    public void OnEnable(){
+        board = GridManager.Instance;
+    }
+
     /**
     Returns the name of the type of piece
     */
@@ -19,8 +26,22 @@ abstract public class Moveset
     */
     public void ExecuteMove(Piece piece, Vector2Int targetLocation){
         //TODO
-        //if the square at the targetLocation has an opponent's piece, remove it, and if it was an enemy that
-        //was captured, add a piece of that type to the captured pieces
-        //then move the moving piece to the target location, and update the tile's slot
+        Tile tile = board.getTileFromBoard(targetLocation);
+        if (tile != null){
+            // if a piece is on the tile, capture it
+            if (tile.pieceOnTile != null){
+                //TODO if the player piece was captured, change to a take damage action
+                if (tile.pieceOnTile.isEnemy){
+                    //add piece of same type to captured pieces
+                }
+                //remove captured piece
+                Object.Destroy(tile.pieceOnTile.gameObject);
+            }
+            piece.Place(tile.tilePosition);
+            piece.moved = true;
+        }
+        else{
+            Debug.Log("location was not at a tile!");
+        }
     }
 }

@@ -4,17 +4,39 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
-public int rows;
-public int columns;
-public Tile[,] boardArray;
-public List<Tile> boardTiles = new List<Tile>();
-private float tileSize = 1;
 
+    // test piece instatiation
+    public Piece playerPawn;
+    public Piece playerRook;
+    public Piece enemyPawn;
+    public Piece enemyRook;
+
+    public int rows;
+    public int columns;
+    public Tile[,] boardArray;
+    private float tileSize = 1;
+    public Transform tilePrefab;
 
     // Start is called before the first frame update
     private void Start()
     {
+        boardArray = new Tile[rows, columns];
         GenerateGrid();
+    }
+
+    private static GridManager _instance;
+
+    public static GridManager Instance { get { return _instance; } }
+
+
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        } else {
+            _instance = this;
+        }
     }
 
     /**
@@ -23,44 +45,39 @@ private float tileSize = 1;
     */
     private void GenerateGrid() {
 
-        //Specify boardArray dimensions
-        boardArray = new Tile[columns, rows];
-
         for (int row = 0; row < rows; row++){
             for (int col = 0; col < columns; col++){
 
                 //Make tile from reference object
-                //GameObject tile = (GameObject)Instantiate(referenceTile, transform);
+                Tile tile = Instantiate(tilePrefab, transform).GetComponent<Tile>();
 
-
-                //make new object
-                GameObject tile = new GameObject();
-                Tile newTile = tile.AddComponent<Tile>() as Tile;
-                Tile getTile = tile.GetComponent<Tile>();
-
-                //tile.newTile.tileSprite = Resources.Load("whiteTile") as Sprite;
-
-                //getTile.tilePosition
                 //set new tile position
-                getTile.Instance.tilePosition.x = col;
-                getTile.Instance.tilePosition.y = row;
+                tile.tilePosition.x = col;
+                tile.tilePosition.y = row;
 
                 //Assign object coordinates
                 float positionX = col * tileSize;
-                float positionY = row * -tileSize;
-
-                newTile.Instance.tileCoordinates = new Vector2(positionX, positionY);
+                float positionY = row * tileSize;
 
                 tile.transform.position = new Vector2(positionX, positionY);
                 tile.name = "Square" + col + "-" + row;
-                //newTile.tileSprite = Resources.Load("whiteTile") as Sprite;
-                //Instantiate(tile, new Vector3(positionX, positionY, 0), Quaternion.identity);
-                //newTile.transform.position = new Vector2(positionX, positionY);
-                getTile.renderSprite();
+                tile.renderSprite();
 
-                boardArray[col, row] = getTile;
-                //boardTiles.Add(getTile);
+                boardArray[col, row] = tile;
+                Debug.Log("(" + col + ", " + row + ")" + boardArray[col, row]);
             }
+        }
+
+        //test piece instantiation
+        if (rows > 8 && columns > 8){
+            Piece pPawn = Instantiate(playerPawn, new Vector3(0, 0, -2), Quaternion.identity);
+            pPawn.Place(new Vector2Int(0, 0));
+            Piece pRook = Instantiate(playerRook, new Vector3(2, 4, -2), Quaternion.identity);
+            pRook.Place(new Vector2Int(2, 4));
+            Piece ePawn = Instantiate(enemyPawn, new Vector3(1, 3, -2), Quaternion.identity);
+            ePawn.Place(new Vector2Int(1, 3));
+            Piece eRook = Instantiate(enemyRook, new Vector3(6, 7, -2), Quaternion.identity);
+            eRook.Place(new Vector2Int(6, 3));
         }
     }
 
@@ -68,12 +85,13 @@ private float tileSize = 1;
     Gets a tile from the board
     */
     public Tile getTileFromBoard(int col, int row){
+        if (col < 0 || col >= columns || row < 0 || row >= rows){
+            return null;
+        }
+        Debug.Log("col: " + col + ", row: " + row + ", boardArray size: " + boardArray);
         return boardArray[col, row];
     }
-
-    // Update is called once per frame
-    private void Update()
-    {
-        
+    public Tile getTileFromBoard(Vector2Int position){
+        return getTileFromBoard(position.x, position.y);
     }
 }

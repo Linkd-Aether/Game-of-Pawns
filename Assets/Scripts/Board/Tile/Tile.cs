@@ -2,40 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tile : MonoBehaviour, IClicked
+public class Tile : MonoBehaviour
 {
     // Start is called before the first frame update
 
     public SpriteRenderer spriteRenderer;
-    public BoxCollider2D boxCollider;
-    public bool isTraversable;
     public Piece pieceOnTile;
-    public Vector2 tilePosition;
-    public Vector2 tileCoordinates;
+    public Vector2Int tilePosition;
 
     public Tile Instance = null;
-    
+
     void Awake()
     {
-        if(Instance == null){
-            Instance = this;
-        } else if(Instance != this){
-            Destroy(gameObject);
-        }
-
-        //Add and get sprite renderer
-        gameObject.AddComponent<SpriteRenderer>();
-        gameObject.AddComponent<BoxCollider2D>();
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();  
-        boxCollider = gameObject.GetComponent<BoxCollider2D>();
-
-        boxCollider.size = new Vector2(1,1);                    
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //get sprite renderer
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
     /**
@@ -48,13 +28,5 @@ public class Tile : MonoBehaviour, IClicked
         } else {
             spriteRenderer.sprite = Resources.Load<Sprite>("whiteTile");
         }
-    }
-
-    public void onClickTile(){
-        Debug.Log("Clicking tile");
-    }
-
-    public void onClickAction(){
-        Debug.Log("Tile " + tilePosition.x + "-" + tilePosition.y);
     }
 }

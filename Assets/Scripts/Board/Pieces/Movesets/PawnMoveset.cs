@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu()]
 public class PawnMoveset : Moveset
 {
     /**
@@ -33,24 +34,40 @@ public class PawnMoveset : Moveset
     */
     override public List<Vector2Int> GetMoves(Piece piece){
         List<Vector2Int> moves = new List<Vector2Int>();
+        // direction of movement depends on whether piece is an enemy
         Vector2Int direction = Vector2Int.up;
         if (piece.isEnemy){
             direction = Vector2Int.down;
         }
+
+        if(board == null)
+        {
+            board = GridManager.Instance;
+        }
+
+        // able to move forward if no piece is there
         Vector2Int current = piece.location + direction;
-        if (/**current is a valid space and there is no piece there*/false){
+        Tile tile = board.getTileFromBoard(current);
+        if (tile != null && tile.pieceOnTile == null){
             moves.Add(piece.location + direction);
             current += direction;
-            if (!piece.moved && /**current is a valid space and there is no piece there*/false){
+            tile = board.getTileFromBoard(current);
+            // able to move forward two spaces if there are no pieces there either, and the piece hasn't moved yet
+            if (!piece.moved && tile != null && tile.pieceOnTile == null){
                 moves.Add(piece.location + direction * 2);
             }
         }
-        if (/**left diagonal is an enemy*/false){
-            moves.Add(piece.location + direction + new Vector2Int(-1, 0));
+
+        // able to move diagonally forward if a capturable piece is there
+        Vector2Int[] diagOffsets = {Vector2Int.left, Vector2Int.right};
+        foreach (Vector2Int diagOffset in diagOffsets){
+            current = piece.location + direction + diagOffset;
+            tile = board.getTileFromBoard(current);
+            if (tile != null && tile.pieceOnTile != null && tile.pieceOnTile.isOppositeSide(piece.isEnemy)){
+                moves.Add(current);
+            }
         }
-        if (/**right diagonal is an enemy*/false){
-            moves.Add(piece.location + direction + new Vector2Int(1, 0));
-        }
+
         return moves;
     }
 }

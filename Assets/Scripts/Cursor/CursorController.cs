@@ -39,6 +39,9 @@ public class CursorController : MonoBehaviour
 
     private void Start(){
 
+        currentAction = new Action(this);
+        Debug.Log("current action initialized: " + currentAction);
+
         //On these actions, call these functions
         controls.Mouse.Click.started += _ => StartedClick();
         controls.Mouse.Click.performed += _ => EndedClick();
@@ -51,26 +54,16 @@ public class CursorController : MonoBehaviour
 
     //Change cursor sprite to unclicked sprite
     private void EndedClick(){
+        Debug.Log("Ended Click");
         ChangeCursor(cursor);
-        DetectObject();
-    }
-
-    private void DetectObject(){
-
-        //Ray we project from the mouse
-        Ray ray = mainCamera.ScreenPointToRay(controls.Mouse.Position.ReadValue<Vector2>());
-
-        //Detects what a ray hits
-        RaycastHit2D hits2D = Physics2D.GetRayIntersection(ray);
-        if(hits2D.collider != null){
-            IClicked click = hits2D.collider.gameObject.GetComponent<IClicked>();
-
-            if(click != null){
-                click.onClickAction();
-            }
-
-            Debug.Log("Hit2D collider: " + hits2D.collider.tag);
-        } 
+        //DetectObject();
+        Vector2 mousePositionFloat = mainCamera.ScreenToWorldPoint(controls.Mouse.Position.ReadValue<Vector2>());
+        Debug.Log("mousePositionFloat: " + mousePositionFloat);
+        Vector2Int mousePosition = new Vector2Int(Mathf.FloorToInt(mousePositionFloat.x), Mathf.FloorToInt(mousePositionFloat.y));
+        Tile tile = GridManager.FindObjectOfType<GridManager>().GetComponent<GridManager>().getTileFromBoard(mousePosition);
+        Debug.Log("calling current action's onClick Event");
+        Debug.Log("passing " + tile);
+        currentAction.onClick(tile);
     }
 
     //Change cursor sprite on and off click
