@@ -39,6 +39,11 @@ public class RookMoveset : Moveset
             new Vector2Int(-1, 0), new Vector2Int(1, 0), new Vector2Int(0, -1), new Vector2Int(0, 1)
         };
 
+        if(board == null)
+        {
+            board = GridManager.Instance;
+        }
+
         // for each direction, add valid moves until reaching a piece or space without a tile
         foreach (Vector2Int direction in directions){
             Vector2Int current = piece.location + direction;
@@ -51,7 +56,7 @@ public class RookMoveset : Moveset
             }
 
             // if the first non-empty space had an enemy, include it too
-            if (tile.pieceOnTile.isOppositeSide(piece.isEnemy)){
+            if (tile != null && tile.pieceOnTile.isOppositeSide(piece.isEnemy)){
                 moves.Add(current);
             }
         }

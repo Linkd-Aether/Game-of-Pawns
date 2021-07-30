@@ -69,9 +69,15 @@ public class GridManager : MonoBehaviour
         }
 
         //test piece instantiation
-        if (rows > 4 && columns > 4){
+        if (rows > 8 && columns > 8){
             Piece pPawn = Instantiate(playerPawn, new Vector3(0, 0, -2), Quaternion.identity);
             pPawn.Place(new Vector2Int(0, 0));
+            Piece pRook = Instantiate(playerRook, new Vector3(2, 4, -2), Quaternion.identity);
+            pRook.Place(new Vector2Int(2, 4));
+            Piece ePawn = Instantiate(enemyPawn, new Vector3(1, 3, -2), Quaternion.identity);
+            ePawn.Place(new Vector2Int(1, 3));
+            Piece eRook = Instantiate(enemyRook, new Vector3(6, 7, -2), Quaternion.identity);
+            eRook.Place(new Vector2Int(6, 3));
         }
     }
 

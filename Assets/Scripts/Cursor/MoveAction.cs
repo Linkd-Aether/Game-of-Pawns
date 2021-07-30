@@ -7,7 +7,7 @@ public class MoveAction : Action
     public Piece selectedPiece;
     public List<Vector2Int> validMoves;
     public Object movePreviewPrefab = Resources.Load("moveProject");
-    private List<Transform> movePreviewObjects = new List<Transform>();
+    private List<GameObject> movePreviewObjects = new List<GameObject>();
 
     /**
     Constructs the MoveAction with the selected piece
@@ -19,8 +19,7 @@ public class MoveAction : Action
         foreach (Vector2Int move in validMoves){
             Debug.Log("Loaded moveProject");
             Vector3 position = new Vector3(move.x, move.y, -1);
-            GameObject gameObject = GameObject.Instantiate(movePreviewPrefab, position, Quaternion.identity) as GameObject;
-            Transform moveProject = gameObject.transform;
+            GameObject moveProject = GameObject.Instantiate(movePreviewPrefab, position, Quaternion.identity) as GameObject;
             movePreviewObjects.Add(moveProject);
         }
     }
@@ -45,7 +44,7 @@ public class MoveAction : Action
     */
     public override void onEnd()
     {
-        foreach (Transform moveProject in movePreviewObjects){
+        foreach (GameObject moveProject in movePreviewObjects){
             Transform.Destroy(moveProject);
         }
     }
