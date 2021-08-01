@@ -68,6 +68,9 @@ public class GridManager : MonoBehaviour
             }
         }
 
+        //center camera
+        Camera.main.transform.position = new Vector3((float)columns / 2, (float)rows / 2, -10);
+
         //test piece instantiation
         if (rows > 8 && columns > 8){
             Piece pPawn = Instantiate(playerPawn, new Vector3(0, 0, -2), Quaternion.identity);
