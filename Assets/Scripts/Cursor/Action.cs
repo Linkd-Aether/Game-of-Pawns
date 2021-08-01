@@ -17,9 +17,7 @@ public class Action
     Selects a friendly piece on the clicked square, if there is one
     */
     virtual public void onClick(Tile tile){
-        Debug.Log("Clicked");
         if (tile != null && tile.pieceOnTile != null && tile.pieceOnTile.isEnemy == false){
-            Debug.Log("clicked on one of the player's pieces");
             onEnd();
             cursorController.currentAction = new MoveAction(cursorController, tile.pieceOnTile);
         }

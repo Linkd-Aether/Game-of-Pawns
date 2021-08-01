@@ -40,7 +40,7 @@ public class CursorController : MonoBehaviour
     private void Start(){
 
         currentAction = new Action(this);
-        Debug.Log("current action initialized: " + currentAction);
+        //Debug.Log("current action initialized: " + currentAction);
 
         //On these actions, call these functions
         controls.Mouse.Click.started += _ => StartedClick();
@@ -54,7 +54,7 @@ public class CursorController : MonoBehaviour
 
     //Change cursor sprite to unclicked sprite
     private void EndedClick(){
-        Debug.Log("Ended Click");
+        //Debug.Log("Ended Click");
         ChangeCursor(cursor);
         Vector2 mousePositionFloat = mainCamera.ScreenToWorldPoint(controls.Mouse.Position.ReadValue<Vector2>());
         //Debug.Log("mousePositionFloat: " + mousePositionFloat);

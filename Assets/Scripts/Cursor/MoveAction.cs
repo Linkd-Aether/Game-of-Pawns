@@ -15,9 +15,9 @@ public class MoveAction : Action
     public MoveAction(CursorController controller, Piece piece) : base(controller){
         selectedPiece = piece;
         validMoves = selectedPiece.GetMoves();
-        Debug.Log("loaded moves: " + validMoves);
+        //Debug.Log("loaded moves: " + validMoves);
         foreach (Vector2Int move in validMoves){
-            Debug.Log("Loaded moveProject");
+            //Debug.Log("Loaded moveProject");
             Vector3 position = new Vector3(move.x, move.y, -1);
             GameObject moveProject = GameObject.Instantiate(movePreviewPrefab, position, Quaternion.identity) as GameObject;
             movePreviewObjects.Add(moveProject);
