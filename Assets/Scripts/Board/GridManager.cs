@@ -72,12 +72,16 @@ public class GridManager : MonoBehaviour
         if (rows > 8 && columns > 8){
             Piece pPawn = Instantiate(playerPawn, new Vector3(0, 0, -2), Quaternion.identity);
             pPawn.Place(new Vector2Int(0, 0));
+            Debug.Log("pPawn: " + pPawn);
             Piece pRook = Instantiate(playerRook, new Vector3(2, 4, -2), Quaternion.identity);
             pRook.Place(new Vector2Int(2, 4));
+            Debug.Log("pRook: " + pRook);
             Piece ePawn = Instantiate(enemyPawn, new Vector3(1, 3, -2), Quaternion.identity);
             ePawn.Place(new Vector2Int(1, 3));
+            Debug.Log("ePawn: " + ePawn);
             Piece eRook = Instantiate(enemyRook, new Vector3(6, 7, -2), Quaternion.identity);
             eRook.Place(new Vector2Int(6, 3));
+            Debug.Log("eRook: " + eRook);
         }
     }
 
@@ -88,7 +92,7 @@ public class GridManager : MonoBehaviour
         if (col < 0 || col >= columns || row < 0 || row >= rows){
             return null;
         }
-        Debug.Log("col: " + col + ", row: " + row + ", boardArray size: " + boardArray);
+        //Debug.Log("col: " + col + ", row: " + row + ", boardArray size: " + boardArray);
         return boardArray[col, row];
     }
     public Tile getTileFromBoard(Vector2Int position){

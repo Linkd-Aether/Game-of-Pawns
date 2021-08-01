@@ -10,8 +10,6 @@ public class Tile : MonoBehaviour
     public Piece pieceOnTile;
     public Vector2Int tilePosition;
 
-    public Tile Instance = null;
-
     void Awake()
     {
         //get sprite renderer
