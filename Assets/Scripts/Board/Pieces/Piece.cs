@@ -4,29 +4,24 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
-    public Vector2Int location;
+    public Vector2Int location = new Vector2Int(-1, -1);
     public Sprite icon = null;
     public Moveset type;
     public bool isEnemy = false;
     public bool moved = false;
-    public static GridManager board;
-
-    /**
-    Called after objects are instantiated, but before any execution of Start, used for setting up references
-    */
-    public void Awake(){
-        board = GameObject.FindObjectOfType<GridManager>().GetComponent<GridManager>();
-    }
 
     /**
     Places the piece at the specified location. If there is no space there, or there is a piece or obstacle, it
     results in unspecified behavior.
     */
     public void Place(Vector2Int targetLocation){
+        GridManager board = GridManager.Instance;
+        if (board.getTileFromBoard(location) != null) {
+            board.getTileFromBoard(location).pieceOnTile = null;
+        }
+        board.getTileFromBoard(targetLocation).pieceOnTile = this;
         location = targetLocation;
         transform.position = new Vector3(targetLocation.x, targetLocation.y, -1);
-        board.getTileFromBoard(location).pieceOnTile = null;
-        board.getTileFromBoard(targetLocation).pieceOnTile = this;
     }
 
     /**

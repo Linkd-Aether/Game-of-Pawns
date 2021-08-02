@@ -95,7 +95,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 279ba7147c778d14083dc644c39b73bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  location: {x: 1, y: 6}
+  location: {x: -1, y: -1}
+  icon: {fileID: 0}
   type: {fileID: 11400000, guid: 27ebf6d5aed17fc4c8e9ef0772fa5235, type: 2}
   isEnemy: 1
   moved: 0

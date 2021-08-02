@@ -64,9 +64,12 @@ public class GridManager : MonoBehaviour
                 tile.renderSprite();
 
                 boardArray[col, row] = tile;
-                Debug.Log("(" + col + ", " + row + ")" + boardArray[col, row]);
+                //Debug.Log("(" + col + ", " + row + ")" + boardArray[col, row]);
             }
         }
+
+        //center camera
+        Camera.main.transform.position = new Vector3((float)columns / 2, (float)rows / 2, -10);
 
         //test piece instantiation
         if (rows > 8 && columns > 8){
@@ -88,7 +91,7 @@ public class GridManager : MonoBehaviour
         if (col < 0 || col >= columns || row < 0 || row >= rows){
             return null;
         }
-        Debug.Log("col: " + col + ", row: " + row + ", boardArray size: " + boardArray);
+        //Debug.Log("col: " + col + ", row: " + row + ", boardArray size: " + boardArray);
         return boardArray[col, row];
     }
     public Tile getTileFromBoard(Vector2Int position){

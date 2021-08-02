@@ -25,7 +25,6 @@ abstract public class Moveset : ScriptableObject
     Executes a move to the target location (might be changed with upgrades, but otherwise constant between pieces)
     */
     public void ExecuteMove(Piece piece, Vector2Int targetLocation){
-        //TODO
         Tile tile = board.getTileFromBoard(targetLocation);
         if (tile != null){
             // if a piece is on the tile, capture it
