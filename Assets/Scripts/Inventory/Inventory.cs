@@ -29,7 +29,7 @@ public class Inventory : MonoBehaviour
     public void Add (Piece piece){
 
         if(pieces.Count <= inventoryLimit){
-            pieces.Add(piece);
+            AddToList(piece);
 
             //Indicate that a piece was changed if it was
             if(onPieceChangedCallback != null){
@@ -45,5 +45,9 @@ public class Inventory : MonoBehaviour
     //Remove a piece from the list of pieces
     public void Remove (Piece piece){
         pieces.Remove(piece);
+    }
+
+    public void AddToList(Piece piece){
+        Debug.Log("Piece type: " + piece.type.ToString().Substring(0,1));
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour, IClicked
+public class InventorySlot : MonoBehaviour
 {
     // Start is called before the first frame update
     public Image icon;
@@ -45,14 +45,11 @@ public class InventorySlot : MonoBehaviour, IClicked
         Inventory.instance.Remove(piece);
     }
 
+    //Summon the piece
     public void UsePiece(){
         Debug.Log("checkmate pog");
         if(piece != null){
             //piece.Place();
         }
-    }
-
-    public void onClickAction(){
-        Debug.Log("Don't choke the throws!");
     }
 }
