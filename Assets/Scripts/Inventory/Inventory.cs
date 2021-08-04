@@ -23,6 +23,7 @@ public class Inventory : MonoBehaviour
 
     #endregion
     public List<Piece> pieces = new List<Piece>();
+    public Piece queuedPiece;
     public int inventoryLimit;
 
     //Add a piece to the inventory
@@ -30,6 +31,7 @@ public class Inventory : MonoBehaviour
 
         if(pieces.Count <= inventoryLimit){
             AddToList(piece);
+            UpdateUI();
 
             //Indicate that a piece was changed if it was
             if(onPieceChangedCallback != null){
@@ -49,5 +51,29 @@ public class Inventory : MonoBehaviour
 
     public void AddToList(Piece piece){
         Debug.Log("Piece type: " + piece.type.ToString().Substring(0,1));
+        pieces.Add(piece);
+    }
+
+    public void UpdateUI(){
+        Debug.Log("Updating UI with length of " + pieces.Count);
+        
+
+        for(int i = 0; i < 4; i++){
+            
+            //Get the newest open slot by using the list of pieces
+            string desiredSlot = "InventorySlot" + (i+1);
+            Debug.Log("desired slot " + desiredSlot);
+            //Transform testTransform = instance.transform.Find("InventorySlot1");
+            GameObject slotObject = instance.transform.GetChild(i).gameObject;
+            InventorySlot slotScript = slotObject.GetComponent<InventorySlot>();
+            
+            if(i < pieces.Count){
+                Debug.Log("sprite garble: " + pieces[i].icon);
+                slotScript.AddPiece(pieces[i]);
+            } else {
+                slotScript.ClearSlot();
+            }
+            
+        }
     }
 }

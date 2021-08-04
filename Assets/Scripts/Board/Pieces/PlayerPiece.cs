@@ -4,5 +4,7 @@ using UnityEngine;
 
 public class PlayerPiece : Piece
 {
-    
+    private void Awake(){
+        DontDestroyOnLoad(gameObject);
+    }
 }

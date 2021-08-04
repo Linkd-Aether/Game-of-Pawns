@@ -10,6 +10,11 @@ public class Piece : MonoBehaviour
     public bool isEnemy = false;
     public bool moved = false;
 
+    private void Awake(){
+        SpriteRenderer renderer = gameObject.GetComponent<SpriteRenderer>();
+        icon = renderer.sprite;
+    }
+
     /**
     Places the piece at the specified location. If there is no space there, or there is a piece or obstacle, it
     results in unspecified behavior.

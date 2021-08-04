@@ -21,6 +21,10 @@ public class CursorController : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        
+        DontDestroyOnLoad(gameObject);
+
+
         controls = new CursorControls();
         ChangeCursor(cursor);
         Cursor.lockState = CursorLockMode.Confined;

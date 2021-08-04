@@ -6,6 +6,11 @@ public class InventoryUI : MonoBehaviour
 {
     Inventory inventory;
     // Start is called before the first frame update
+
+    private void Awake(){
+        DontDestroyOnLoad(gameObject);
+    }
+
     void Start()
     {
         inventory = Inventory.instance;

@@ -9,9 +9,15 @@ public class InventorySlot : MonoBehaviour
     public Image icon;
     private Piece piece;
 
+    public SummonAction summonAction;
     private Button inventoryButton;
 
+    public static InventorySlot instance;
+
     private void Awake(){
+        if(instance == null){
+            instance = this;
+        }
         inventoryButton = gameObject.transform.GetChild(0).GetComponent<Button>();
         inventoryButton.interactable = false;
     }
@@ -48,8 +54,7 @@ public class InventorySlot : MonoBehaviour
     //Summon the piece
     public void UsePiece(){
         Debug.Log("checkmate pog");
-        if(piece != null){
-            //piece.Place();
-        }
+        Inventory.instance.queuedPiece = piece;
+        
     }
 }
