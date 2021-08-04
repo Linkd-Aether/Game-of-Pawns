@@ -22,16 +22,17 @@ public class Inventory : MonoBehaviour
     }
 
     #endregion
-    public List<Piece> pieces = new List<Piece>();
+    //public List<Piece> pieces = new List<Piece>();
     public Piece queuedPiece;
     public int inventoryLimit;
+    public int capturedPieces;
 
+    /*
     //Add a piece to the inventory
     public void Add (Piece piece){
 
-        if(pieces.Count <= inventoryLimit){
-            AddToList(piece);
-            UpdateUI();
+        if(capturedPieces <= inventoryLimit){
+            UpdateUIAdd();
 
             //Indicate that a piece was changed if it was
             if(onPieceChangedCallback != null){
@@ -43,21 +44,26 @@ public class Inventory : MonoBehaviour
         }
         
     }
+    */
 
-    //Remove a piece from the list of pieces
-    public void Remove (Piece piece){
-        pieces.Remove(piece);
-    }
+    public void UpdateUIAdd(Moveset moveset){
+        Debug.Log("Adding to UI with " + capturedPieces + " pieces");
 
-    public void AddToList(Piece piece){
-        Debug.Log("Piece type: " + piece.type.ToString().Substring(0,1));
-        pieces.Add(piece);
-    }
+        //Determine which slot we need to add to or subtract from
+        InventorySlot alteredSlot = getInventorySlotType(moveset);
+        
+        //Add the piece to the respective moveset
+        if (capturedPieces <= inventoryLimit)
+        {
+            capturedPieces += 1;
+            alteredSlot.slotPieces += 1;
 
-    public void UpdateUI(){
-        Debug.Log("Updating UI with length of " + pieces.Count);
+            Debug.Log("Total captured pieces: " + capturedPieces);
+            Debug.Log("Captured pieces of altered type: " + alteredSlot.slotPieces);
+        }
         
 
+        /*
         for(int i = 0; i < 4; i++){
             
             //Get the newest open slot by using the list of pieces
@@ -75,5 +81,40 @@ public class Inventory : MonoBehaviour
             }
             
         }
+        */
+    }
+
+    public void UpdateUISubtract(Moveset moveset)
+    {
+        Debug.Log("Subtracting from UI with " + capturedPieces + " pieces");
+
+        //Determine which slot we need to add to or subtract from
+        InventorySlot alteredSlot = getInventorySlotType(moveset);
+        
+        //Add the piece to the respective moveset
+        if (capturedPieces <= inventoryLimit)
+        {
+            capturedPieces -= 1;
+            alteredSlot.slotPieces -= 1;
+            
+            
+            
+            Debug.Log("Total captured pieces: " + capturedPieces);
+            Debug.Log("Captured pieces of altered type: " + alteredSlot.slotPieces);
+        }
+    }
+
+    public InventorySlot getInventorySlotType(Moveset moveset)
+    {
+        for (var i = 0; i < transform.childCount; i++)
+        {
+            if (moveset == transform.GetChild(i).GetComponent<InventorySlot>().storageType)
+            {
+                return transform.GetChild(i).GetComponent<InventorySlot>();
+            }
+        }
+        //Go here if we somehow bug out
+        Debug.Log("We couldn't find a slot type");
+        return null;
     }
 }

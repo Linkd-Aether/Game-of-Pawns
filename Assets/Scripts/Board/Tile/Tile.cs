@@ -10,7 +10,7 @@ public class Tile : MonoBehaviour
     public Piece pieceOnTile;
     public Vector2Int tilePosition;
 
-    void Awake()
+    private void Awake()
     {
         //get sprite renderer
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
@@ -21,7 +21,7 @@ public class Tile : MonoBehaviour
     */
     public void renderSprite(){
         //Sums the x and y position of the board, varying visual element depending on if sum is even or odd
-        if(((tilePosition.x + tilePosition.y) % 2) == 0){
+        if((tilePosition.x + tilePosition.y) % 2 == 0){
             spriteRenderer.sprite = Resources.Load<Sprite>("blackTile");
         } else {
             spriteRenderer.sprite = Resources.Load<Sprite>("whiteTile");
@@ -32,6 +32,7 @@ public class Tile : MonoBehaviour
     Helper function made to instantiate a summoned piece on a tile
     */
     public void instantiatePiece(Piece summonedPiece){
+        Debug.Log("Instantiating Piece " + summonedPiece);
         //Define initial variables
         GameObject loadedFile = new GameObject();
         string filePath = "";

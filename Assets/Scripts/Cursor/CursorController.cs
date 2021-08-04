@@ -15,14 +15,20 @@ public class CursorController : MonoBehaviour
 
     private CursorControls controls;
 
+    public static CursorController instance;
+
     public Action currentAction;
 
     private Camera mainCamera;
     // Start is called before the first frame update
     private void Awake()
     {
-        
+        if (instance == null)
+        {
+            instance = this;
+        }
         DontDestroyOnLoad(gameObject);
+        
 
 
         controls = new CursorControls();

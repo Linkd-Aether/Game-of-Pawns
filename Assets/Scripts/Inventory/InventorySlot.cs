@@ -7,11 +7,9 @@ public class InventorySlot : MonoBehaviour
 {
     // Start is called before the first frame update
     public Image icon;
-    private Piece piece;
-
-    public SummonAction summonAction;
+    public Moveset storageType;
+    public int slotPieces;
     private Button inventoryButton;
-
     public static InventorySlot instance;
 
     private void Awake(){
@@ -19,42 +17,28 @@ public class InventorySlot : MonoBehaviour
             instance = this;
         }
         inventoryButton = gameObject.transform.GetChild(0).GetComponent<Button>();
-        inventoryButton.interactable = false;
+        inventoryButton.interactable = true;
     }
 
 
+    /*
     //Add piece to the UI
-    public void AddPiece(Piece newPiece){
-        piece = newPiece;
-
+    public void AddPiece(){
         icon.sprite = piece.icon;
         icon.enabled = true;
 
         inventoryButton.interactable = true;
     }
-
-    //Clear the slot of the piece
-    public void ClearSlot(){
-        piece = null;
-        icon.sprite = null;
-        icon.enabled = false;
-
-        inventoryButton.interactable = false;
-    }
-
-    //getter for piece
-    public Piece getPiece(){
-        return piece;
-    }
-
-    public void RemoveItemFromInventory(){
-        Inventory.instance.Remove(piece);
-    }
+    */
 
     //Summon the piece
     public void UsePiece(){
         Debug.Log("checkmate pog");
-        Inventory.instance.queuedPiece = piece;
-        
+
+        CursorController.instance.currentAction.onEnd();
+
+        //CursorController.instance.currentAction = new SummonAction();
+        //Inventory.instance.queuedPiece = piece;
+
     }
 }

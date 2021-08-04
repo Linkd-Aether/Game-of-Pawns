@@ -21,16 +21,6 @@ public class Action
             onEnd();
             cursorController.currentAction = new MoveAction(cursorController, tile.pieceOnTile);
         }
-        else if(Inventory.instance.queuedPiece != null){
-            onEnd();
-            GameObject piece = new GameObject();
-            piece.AddComponent<Piece>();
-            Piece reference = piece.GetComponent<Piece>();
-            reference = Inventory.instance.queuedPiece;
-            Debug.Log("Fred fucks reigns supreme!");
-
-            cursorController.currentAction = new SummonAction(cursorController, piece);
-        }
         else{
             onEnd();
             cursorController.currentAction = new Action(cursorController);

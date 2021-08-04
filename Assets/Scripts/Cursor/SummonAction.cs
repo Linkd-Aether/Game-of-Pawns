@@ -12,9 +12,11 @@ public class SummonAction : Action
     /**
     Constructs the SummonAction with the selected piece type
     */
-    public SummonAction(CursorController controller, GameObject piece) : base(controller){
-        pieceToSummon = piece;
+    public SummonAction(CursorController controller, Moveset pieceType) : base(controller){
         Debug.Log("ran summon action!");
+        
+        pieceToSummon = new GameObject();
+        
         validSpaces = controller.GetComponent<PlayerPiece>().GetMoves();
         foreach (Vector2Int space in validSpaces){
             Vector3 position = new Vector3(space.x, space.y, -1);

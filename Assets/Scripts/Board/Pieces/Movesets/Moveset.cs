@@ -32,7 +32,7 @@ abstract public class Moveset : ScriptableObject
                 //TODO if the player piece was captured, change to a take damage action
                 if (tile.pieceOnTile.isEnemy){
                     //add piece of same type to captured pieces
-                    Inventory.instance.Add(tile.pieceOnTile);
+                    Inventory.instance.UpdateUIAdd(tile.pieceOnTile.type);
                 }
                 //remove captured piece
                 Object.Destroy(tile.pieceOnTile.gameObject);
