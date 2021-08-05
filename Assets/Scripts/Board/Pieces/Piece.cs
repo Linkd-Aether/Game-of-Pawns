@@ -49,4 +49,9 @@ public class Piece : MonoBehaviour
     virtual public bool isOppositeSide(bool side){
         return side ^ isEnemy;
     }
+
+    public void initSprite(){
+        SpriteRenderer renderer = gameObject.GetComponent<SpriteRenderer>();
+        renderer.sprite = icon;
+    }
 }

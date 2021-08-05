@@ -61,27 +61,6 @@ public class Inventory : MonoBehaviour
             Debug.Log("Total captured pieces: " + capturedPieces);
             Debug.Log("Captured pieces of altered type: " + alteredSlot.slotPieces);
         }
-        
-
-        /*
-        for(int i = 0; i < 4; i++){
-            
-            //Get the newest open slot by using the list of pieces
-            string desiredSlot = "InventorySlot" + (i+1);
-            Debug.Log("desired slot " + desiredSlot);
-            //Transform testTransform = instance.transform.Find("InventorySlot1");
-            GameObject slotObject = instance.transform.GetChild(i).gameObject;
-            InventorySlot slotScript = slotObject.GetComponent<InventorySlot>();
-            
-            if(i < pieces.Count){
-                Debug.Log("sprite garble: " + pieces[i].icon);
-                slotScript.AddPiece(pieces[i]);
-            } else {
-                slotScript.ClearSlot();
-            }
-            
-        }
-        */
     }
 
     public void UpdateUISubtract(Moveset moveset)

@@ -11,6 +11,8 @@ public class GridManager : MonoBehaviour
     public Piece enemyPawn;
     public Piece enemyRook;
 
+    public Piece defaultPiece;
+
     public int rows;
     public int columns;
     public Tile[,] boardArray;
@@ -98,4 +100,30 @@ public class GridManager : MonoBehaviour
     public Tile getTileFromBoard(Vector2Int position){
         return getTileFromBoard(position.x, position.y);
     }
+
+    public void CreateSummonedPiece(Moveset moveset, Tile tile){
+        //Get the default piece prefab
+
+        Piece newSummon = Instantiate(defaultPiece, new Vector3(tile.tilePosition.x, tile.tilePosition.y, -2), Quaternion.identity);
+
+        tile.pieceOnTile = newSummon;
+        newSummon.icon = getPieceSprite(moveset);
+        newSummon.type = moveset;
+        newSummon.initSprite();
+
+        newSummon.Place(new Vector2Int(tile.tilePosition.x, tile.tilePosition.y));
+    }
+
+    private Sprite getPieceSprite(Moveset moveset){
+        if(moveset is RookMoveset){
+            return Resources.Load<Sprite>("Sprites/whiteRook");
+        } else if(moveset is PawnMoveset){
+            return Resources.Load<Sprite>("Sprites/whitePawn");
+        }
+    
+        Debug.Log("Could not get sprite. Something's wrong...");
+        return null;
+    }
+
+
 }

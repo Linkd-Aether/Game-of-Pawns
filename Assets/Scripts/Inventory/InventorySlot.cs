@@ -7,6 +7,7 @@ public class InventorySlot : MonoBehaviour
 {
     // Start is called before the first frame update
     public Image icon;
+    public Text pieceQuantity;
     public Moveset storageType;
     public int slotPieces;
     private Button inventoryButton;
@@ -36,8 +37,7 @@ public class InventorySlot : MonoBehaviour
         Debug.Log("checkmate pog");
 
         CursorController.instance.currentAction.onEnd();
-
-        //CursorController.instance.currentAction = new SummonAction();
+        CursorController.instance.currentAction = new SummonAction(CursorController.instance, storageType, slotPieces);
         //Inventory.instance.queuedPiece = piece;
 
     }
