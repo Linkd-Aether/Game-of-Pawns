@@ -161,6 +161,9 @@ public class GridManager : MonoBehaviour
         return null;
     }
 
+    /*
+        Generate the enemies, obstacles, and other objects on the board
+     */ 
     public void GenerateBoardDetails()
     {
 
@@ -178,7 +181,7 @@ public class GridManager : MonoBehaviour
         }
         levelLines.Reverse();
 
-
+        // Read the level design and place obstacles/enemy spawners accordingly
         int row = 0;
         foreach (string rowString in levelLines)
         {
@@ -188,8 +191,14 @@ public class GridManager : MonoBehaviour
                 switch (colChar)
                 {
                     case '_':
-                        Debug.Log(col + " " + row);
+                        //Debug.Log("Obstacle at:\nCol: " + col + "     Row: " + row);
                         CreateSummonedPiece(Resources.Load<Moveset>("ObstacleMoveset"), getTileFromBoard(new Vector2Int(col, row)), true);
+                        break;
+                    case '=':
+                        // TODO: Place enemy summoner here, which randomly distributes enemies in an area either immediately or later in the level building process
+                        break;
+                    case '+':
+                        // TODO: Place entrance here, which is where the player starts
                         break;
                     default:
                         break;
