@@ -90,6 +90,9 @@ public class GridManager : MonoBehaviour
             CreateSummonedPiece(Resources.Load<Moveset>("RookMoveset"), getTileFromBoard(new Vector2Int(2, 4)), false);
             CreateSummonedPiece(Resources.Load<Moveset>("PawnMoveset"), getTileFromBoard(new Vector2Int(1, 3)), true);
             CreateSummonedPiece(Resources.Load<Moveset>("RookMoveset"), getTileFromBoard(new Vector2Int(6, 3)), true);
+
+            CreateSummonedPiece(Resources.Load<Moveset>("BishopMoveset"), getTileFromBoard(new Vector2Int(0, 1)), false);
+            CreateSummonedPiece(Resources.Load<Moveset>("KnightMoveset"), getTileFromBoard(new Vector2Int(0, 2)), false);
         }
     }
 
