@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class GridManager : MonoBehaviour
@@ -24,6 +25,7 @@ public class GridManager : MonoBehaviour
     {
         boardArray = new Tile[rows, columns];
         GenerateGrid();
+        GenerateBoardDetails();
     }
 
     private static GridManager _instance;
@@ -152,10 +154,49 @@ public class GridManager : MonoBehaviour
             return Resources.Load<Sprite>("Sprites/blackRook");
         } else if(moveset is PawnMoveset){
             return Resources.Load<Sprite>("Sprites/blackPawn");
+        } else if(moveset is ObstacleMoveset){
+            return Resources.Load<Sprite>("greyTile");
         }
         Debug.Log("Could not get sprite. Something's wrong...");
         return null;
     }
 
+    public void GenerateBoardDetails()
+    {
 
+        // Randomly choose a level design from the folder
+        string[] files = Directory.GetFiles("Assets/Resources/Level Layouts", "*.chess");
+        string levelString = files[Random.Range(0, files.Length)];
+
+        StreamReader reader = new StreamReader(levelString);
+
+        // Reverse the line order because files read top-down
+        List<string> levelLines = new List<string>();
+        while (!reader.EndOfStream)
+        {
+            levelLines.Add(reader.ReadLine());
+        }
+        levelLines.Reverse();
+
+
+        int row = 0;
+        foreach (string rowString in levelLines)
+        {
+            int col = 0;
+            foreach (char colChar in rowString.ToCharArray())
+            {
+                switch (colChar)
+                {
+                    case '_':
+                        Debug.Log(col + " " + row);
+                        CreateSummonedPiece(Resources.Load<Moveset>("ObstacleMoveset"), getTileFromBoard(new Vector2Int(col, row)), true);
+                        break;
+                    default:
+                        break;
+                }
+                col++;
+            }
+            row++;
+        }
+    }
 }
