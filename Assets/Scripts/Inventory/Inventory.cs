@@ -27,25 +27,9 @@ public class Inventory : MonoBehaviour
     public int inventoryLimit;
     public int capturedPieces;
 
-    /*
-    //Add a piece to the inventory
-    public void Add (Piece piece){
-
-        if(capturedPieces <= inventoryLimit){
-            UpdateUIAdd();
-
-            //Indicate that a piece was changed if it was
-            if(onPieceChangedCallback != null){
-                onPieceChangedCallback.Invoke();
-            }
-            
-        } else {
-            Debug.Log("You've maxed out on pieces!");
-        }
-        
-    }
+    /**
+        Update the UI when a captured piece is added to the player's sleight of pieces
     */
-
     public void UpdateUIAdd(Moveset moveset){
         Debug.Log("Adding to UI with " + capturedPieces + " pieces");
 
@@ -53,16 +37,20 @@ public class Inventory : MonoBehaviour
         InventorySlot alteredSlot = getInventorySlotType(moveset);
         
         //Add the piece to the respective moveset
-        if (capturedPieces <= inventoryLimit)
+        if (capturedPieces < inventoryLimit)
         {
             capturedPieces += 1;
             alteredSlot.slotPieces += 1;
+            alteredSlot.pieceQuantity.text = alteredSlot.slotPieces.ToString();
 
             Debug.Log("Total captured pieces: " + capturedPieces);
             Debug.Log("Captured pieces of altered type: " + alteredSlot.slotPieces);
         }
     }
 
+    /**
+        Update the UI when a captured piece is used by the player.
+    */
     public void UpdateUISubtract(Moveset moveset)
     {
         Debug.Log("Subtracting from UI with " + capturedPieces + " pieces");
@@ -70,11 +58,12 @@ public class Inventory : MonoBehaviour
         //Determine which slot we need to add to or subtract from
         InventorySlot alteredSlot = getInventorySlotType(moveset);
         
-        //Add the piece to the respective moveset
-        if (capturedPieces <= inventoryLimit)
+        //subtract the piece from the respective moveset
+        if (capturedPieces > 0)
         {
             capturedPieces -= 1;
             alteredSlot.slotPieces -= 1;
+            alteredSlot.pieceQuantity.text = alteredSlot.slotPieces.ToString();
             
             
             
@@ -83,8 +72,12 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    /**
+        Helper function that gets the appropriate inventory slot for modification
+    */
     public InventorySlot getInventorySlotType(Moveset moveset)
     {
+        //Iterate through each object until we find one with the moveset we want
         for (var i = 0; i < transform.childCount; i++)
         {
             if (moveset == transform.GetChild(i).GetComponent<InventorySlot>().storageType)

@@ -17,28 +17,17 @@ public class InventorySlot : MonoBehaviour
         if(instance == null){
             instance = this;
         }
+
         inventoryButton = gameObject.transform.GetChild(0).GetComponent<Button>();
         inventoryButton.interactable = true;
     }
 
-
-    /*
-    //Add piece to the UI
-    public void AddPiece(){
-        icon.sprite = piece.icon;
-        icon.enabled = true;
-
-        inventoryButton.interactable = true;
-    }
+    /**
+        Activated when a piece is clicked, triggering a summon action
     */
-
-    //Summon the piece
     public void UsePiece(){
-        Debug.Log("checkmate pog");
-
+        Debug.Log("Using piece...");
         CursorController.instance.currentAction.onEnd();
         CursorController.instance.currentAction = new SummonAction(CursorController.instance, storageType, slotPieces);
-        //Inventory.instance.queuedPiece = piece;
-
     }
 }

@@ -19,10 +19,12 @@ public class SummonAction : Action
     public SummonAction(CursorController controller, Moveset pieceType, int slotPieces) : base(controller){
         Debug.Log("ran summon action!");
         
-        validSpaces = PlayerPiece.instance.GetMoves();
+        //Save inventory variables to private values in InventorySlot
         currentSlotPieces = slotPieces;
         pieceMovesetType = pieceType;
 
+        //Get valid spaces and instantiate them
+        validSpaces = PlayerPiece.instance.GetMoves();
         foreach (Vector2Int space in validSpaces){
             Vector3 position = new Vector3(space.x, space.y, -1);
             GameObject spaceProject = GameObject.Instantiate(movePreviewPrefab, position, Quaternion.identity) as GameObject;
@@ -39,20 +41,23 @@ public class SummonAction : Action
 
             Debug.Log("help");
 
-            // TODO instantiate pieceToSummon at the location
-            GridManager.Instance.CreateSummonedPiece(pieceMovesetType, tile);
+            //instantiate pieceToSummon at the location
+            GridManager.Instance.CreateSummonedPiece(pieceMovesetType, tile, false);
             Inventory.instance.UpdateUISubtract(pieceMovesetType);
             onEnd();
+
+            // TODO call enemy controller to execute the enemy's turn
+
             cursorController.currentAction = new Action(cursorController);
             
-            // TODO call enemy controller to execute the enemy's turn
+            
         } else {
             base.onClick(tile);
         }
     }
 
     /**
-    When the MoveAction ends, remove all move projections
+    When the SummonAction ends, remove all move projections
     */
     public override void onEnd()
     {
