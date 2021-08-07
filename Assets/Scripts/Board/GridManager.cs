@@ -111,7 +111,8 @@ public class GridManager : MonoBehaviour
         newSummon.isEnemy = isPieceEnemy;
         newSummon.initSprite();
 
-        newSummon.Place(new Vector2Int(tile.tilePosition.x, tile.tilePosition.y));
+        newSummon.type.ExecuteMove(newSummon, new Vector2Int(tile.tilePosition.x, tile.tilePosition.y));
+        newSummon.moved = false;
     }
 
     /*
@@ -127,6 +128,7 @@ public class GridManager : MonoBehaviour
         newSummon.isEnemy = isPieceEnemy;
         newSummon.initSprite();
 
-        newSummon.Place(new Vector2Int(tile.tilePosition.x, tile.tilePosition.y));
+        newSummon.type.ExecuteMove(newSummon, new Vector2Int(tile.tilePosition.x, tile.tilePosition.y));
+        newSummon.moved = false;
     }
 }

@@ -46,8 +46,8 @@ public class SummonAction : Action
             //Debug.Log("help");
 
             //instantiate pieceToSummon at the location
-            GridManager.Instance.CreateSummonedPiece(pieceMovesetType, tile, false);
             Inventory.instance.UpdateUISubtract(pieceMovesetType);
+            GridManager.Instance.CreateSummonedPiece(pieceMovesetType, tile, false);
             onEnd();
 
             // TODO call enemy controller to execute the enemy's turn

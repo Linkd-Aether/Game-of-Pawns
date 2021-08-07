@@ -57,7 +57,7 @@ public class KnightMoveset : Moveset
         Vector2Int current = piece.location + tilePosition;
         Tile tile = board.getTileFromBoard(current);
 
-        if(tile != null && tile.pieceOnTile == null){
+        if(tile != null && (tile.pieceOnTile == null || tile.pieceOnTile.isEnemy)){
             moves.Add(current);
         }
     }
