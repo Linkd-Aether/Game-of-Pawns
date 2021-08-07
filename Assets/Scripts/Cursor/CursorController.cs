@@ -32,7 +32,7 @@ public class CursorController : MonoBehaviour
 
 
         controls = new CursorControls();
-        ChangeCursor(cursor);
+        ChangeCursor(cursor, new Vector2(31, 21));
         Cursor.lockState = CursorLockMode.Confined;
         mainCamera = Camera.main;
     }
@@ -59,13 +59,15 @@ public class CursorController : MonoBehaviour
 
     //Change cursor sprite to clicked sprite
     private void StartedClick(){
-        ChangeCursor(cursorClicked);
+        //there's no option to save the position of the cursor in the image, from the editor so we have to change
+        //the vector manually whenever the cursor changes unfortunately.
+        ChangeCursor(cursorClicked, new Vector2(26, 26));
     }
 
     //Change cursor sprite to unclicked sprite
     private void EndedClick(){
         //Debug.Log("Ended Click");
-        ChangeCursor(cursor);
+        ChangeCursor(cursor, new Vector2(31, 21));
         Vector2 mousePositionFloat = mainCamera.ScreenToWorldPoint(controls.Mouse.Position.ReadValue<Vector2>());
         //Debug.Log("mousePositionFloat: " + mousePositionFloat);
         Vector2Int mousePosition = new Vector2Int(Mathf.FloorToInt(mousePositionFloat.x), Mathf.FloorToInt(mousePositionFloat.y));
@@ -76,8 +78,10 @@ public class CursorController : MonoBehaviour
     }
 
     //Change cursor sprite on and off click
-    private void ChangeCursor(Texture2D cursorType){
-        Cursor.SetCursor(cursorType, Vector2.zero, CursorMode.Auto);
+    private void ChangeCursor(Texture2D cursorType, Vector2 hotspot){
+        //there's no option to save the position of the cursor in the image, from the editor so we have to change
+        //the vector manually whenever the cursor changes unfortunately.
+        Cursor.SetCursor(cursorType, hotspot, CursorMode.Auto);
     }
 
 
