@@ -6,6 +6,8 @@ using UnityEngine;
 abstract public class Moveset : ScriptableObject
 {
     public static GridManager board;
+    public Sprite playerSprite = null;
+    public Sprite enemySprite = null;
 
     public void OnEnable(){
         board = GridManager.Instance;

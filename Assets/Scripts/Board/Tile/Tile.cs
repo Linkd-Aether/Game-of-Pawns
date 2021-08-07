@@ -19,12 +19,12 @@ public class Tile : MonoBehaviour
     /**
     Renders a sprite
     */
-    public void renderSprite(){
+    public void renderSprite(Theme theme){
         //Sums the x and y position of the board, varying visual element depending on if sum is even or odd
         if((tilePosition.x + tilePosition.y) % 2 == 0){
-            spriteRenderer.sprite = Resources.Load<Sprite>("blackTile");
+            spriteRenderer.sprite = theme.darkSquare;
         } else {
-            spriteRenderer.sprite = Resources.Load<Sprite>("whiteTile");
+            spriteRenderer.sprite = theme.lightSquare;
         }
     }
 }

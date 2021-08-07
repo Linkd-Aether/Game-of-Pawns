@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c0a226e647ba5849a20c5046a97a472, type: 3}
   m_Name: PawnMoveset
   m_EditorClassIdentifier: 
+  playerSprite: {fileID: -5934092235712011193, guid: 0cb7b31e591184642841766b66156f2d, type: 3}
+  enemySprite: {fileID: 1802152722366656135, guid: 0cb7b31e591184642841766b66156f2d, type: 3}

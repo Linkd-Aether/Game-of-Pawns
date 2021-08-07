@@ -17,13 +17,17 @@ public class SummonAction : Action
     Constructs the SummonAction with the selected piece type
     */
     public SummonAction(CursorController controller, Moveset pieceType, int slotPieces) : base(controller){
-        Debug.Log("ran summon action!");
+        //Debug.Log("ran summon action!");
         
         //Save inventory variables to private values in InventorySlot
         currentSlotPieces = slotPieces;
         pieceMovesetType = pieceType;
 
         //Get valid spaces and instantiate them
+        if (PlayerPiece.instance == null){
+            Debug.Log("could not find PlayerPiece instance");
+            return;
+        }
         validSpaces = PlayerPiece.instance.GetMoves();
         foreach (Vector2Int space in validSpaces){
             Vector3 position = new Vector3(space.x, space.y, -1);
@@ -39,7 +43,7 @@ public class SummonAction : Action
     override public void onClick(Tile tile){
         if (tile != null && validSpaces.Contains(tile.tilePosition) && currentSlotPieces > 0){
 
-            Debug.Log("help");
+            //Debug.Log("help");
 
             //instantiate pieceToSummon at the location
             GridManager.Instance.CreateSummonedPiece(pieceMovesetType, tile, false);

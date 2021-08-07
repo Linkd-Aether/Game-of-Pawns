@@ -8,9 +8,10 @@ public class PlayerPiece : Piece
     public static PlayerPiece instance;
 
     private void Awake(){
-        DontDestroyOnLoad(gameObject);
-
-        if(instance == null){
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        } else {
             instance = this;
         }
     }

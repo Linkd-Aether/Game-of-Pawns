@@ -23,14 +23,14 @@ public class KnightMoveset : Moveset
         }
     }
 
-     /**
+    /**
     Returns the name of the type of piece
     */
     override public string GetTypeName(){
         return "Knight";
     }
 
-   /**
+    /**
     Calculates which squares are legal for this piece to move on its turn
     */
     override public List<Vector2Int> GetMoves(Piece piece){

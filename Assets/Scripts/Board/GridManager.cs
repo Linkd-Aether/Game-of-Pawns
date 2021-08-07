@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
-
-    // test piece instatiation
-    public Piece playerPawn;
-    public Piece playerRook;
-    public Piece enemyPawn;
-    public Piece enemyRook;
-
+    //prefabs for instantiating pieces
     public Piece defaultPiece;
+    public Piece playerPiece;
+
+    //area theme
+    public Theme theme;
 
     public int rows;
     public int columns;
@@ -64,7 +62,7 @@ public class GridManager : MonoBehaviour
 
                 tile.transform.position = new Vector2(positionX, positionY);
                 tile.name = "Square" + col + "-" + row;
-                tile.renderSprite();
+                tile.renderSprite(theme);
 
                 boardArray[col, row] = tile;
                 //Debug.Log("(" + col + ", " + row + ")" + boardArray[col, row]);
@@ -75,18 +73,8 @@ public class GridManager : MonoBehaviour
         Camera.main.transform.position = new Vector3((float)columns / 2, (float)rows / 2, -10);
 
         //test piece instantiation
-        if (rows > 8 && columns > 8){
-            Piece pPawn = Instantiate(playerPawn, new Vector3(0, 0, -2), Quaternion.identity);
-            pPawn.Place(new Vector2Int(0, 0));
-            /*
-            Piece pRook = Instantiate(playerRook, new Vector3(2, 4, -2), Quaternion.identity);
-            pRook.Place(new Vector2Int(2, 4));
-            Piece ePawn = Instantiate(enemyPawn, new Vector3(1, 3, -2), Quaternion.identity);
-            ePawn.Place(new Vector2Int(1, 3));
-            Piece eRook = Instantiate(enemyRook, new Vector3(6, 7, -2), Quaternion.identity);
-            eRook.Place(new Vector2Int(6, 3));
-            */
-
+        if (rows > 6 && columns > 4){
+            CreatePlayerPiece(Resources.Load<Moveset>("PawnMoveset"), getTileFromBoard(new Vector2Int(0, 0)), false);
             CreateSummonedPiece(Resources.Load<Moveset>("RookMoveset"), getTileFromBoard(new Vector2Int(2, 4)), false);
             CreateSummonedPiece(Resources.Load<Moveset>("PawnMoveset"), getTileFromBoard(new Vector2Int(1, 3)), true);
             CreateSummonedPiece(Resources.Load<Moveset>("RookMoveset"), getTileFromBoard(new Vector2Int(6, 3)), true);
@@ -111,22 +99,14 @@ public class GridManager : MonoBehaviour
     }
 
     /*
-        Create a summoned piece from the default piece prefab to instantiate
+        Create a summoned piece from the default piece prefab.
     */
     public void CreateSummonedPiece(Moveset moveset, Tile tile, bool isPieceEnemy){
         //Get the default piece prefab
 
         Piece newSummon = Instantiate(defaultPiece, new Vector3(tile.tilePosition.x, tile.tilePosition.y, -2), Quaternion.identity);
 
-        tile.pieceOnTile = newSummon;
-
         //Initialize qualities of the newly summoned piece
-        if(isPieceEnemy){
-            newSummon.icon = getEnemyPieceSprite(moveset);
-        } else {
-            newSummon.icon = getFriendlyPieceSprite(moveset);
-        }
-        
         newSummon.type = moveset;
         newSummon.isEnemy = isPieceEnemy;
         newSummon.initSprite();
@@ -135,30 +115,18 @@ public class GridManager : MonoBehaviour
     }
 
     /*
-        Helper function that gets the appropriate friendly piece sprite depending on the moveset
+        Create the player's piece from the player piece prefab.
     */
-    private Sprite getFriendlyPieceSprite(Moveset moveset){
-        if(moveset is RookMoveset){
-            return Resources.Load<Sprite>("Sprites/whiteRook");
-        } else if(moveset is PawnMoveset){
-            return Resources.Load<Sprite>("Sprites/whitePawn");
-        }
-        Debug.Log("Could not get sprite. Something's wrong...");
-        return null;
+    public void CreatePlayerPiece(Moveset moveset, Tile tile, bool isPieceEnemy){
+        //Get the default piece prefab
+
+        Piece newSummon = Instantiate(playerPiece, new Vector3(tile.tilePosition.x, tile.tilePosition.y, -2), Quaternion.identity);
+
+        //Initialize qualities of the newly summoned piece
+        newSummon.type = moveset;
+        newSummon.isEnemy = isPieceEnemy;
+        newSummon.initSprite();
+
+        newSummon.Place(new Vector2Int(tile.tilePosition.x, tile.tilePosition.y));
     }
-
-    /*
-        Helper function that gets the appropriate enemy piece sprite depending on the moveset
-    */
-    private Sprite getEnemyPieceSprite(Moveset moveset){
-        if(moveset is RookMoveset){
-            return Resources.Load<Sprite>("Sprites/blackRook");
-        } else if(moveset is PawnMoveset){
-            return Resources.Load<Sprite>("Sprites/blackPawn");
-        }
-        Debug.Log("Could not get sprite. Something's wrong...");
-        return null;
-    }
-
-
 }

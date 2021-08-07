@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec4b78f3d6c3a14fae52a0061341c02, type: 3}
   m_Name: RookMoveset
   m_EditorClassIdentifier: 
+  playerSprite: {fileID: 555638698932780105, guid: 0cb7b31e591184642841766b66156f2d, type: 3}
+  enemySprite: {fileID: -2964466536611463486, guid: 0cb7b31e591184642841766b66156f2d, type: 3}

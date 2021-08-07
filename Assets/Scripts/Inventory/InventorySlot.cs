@@ -20,13 +20,17 @@ public class InventorySlot : MonoBehaviour
 
         inventoryButton = gameObject.transform.GetChild(0).GetComponent<Button>();
         inventoryButton.interactable = true;
+
+        if (icon != null && storageType != null){
+            icon.sprite = storageType.playerSprite;
+        }
     }
 
     /**
         Activated when a piece is clicked, triggering a summon action
     */
     public void UsePiece(){
-        Debug.Log("Using piece...");
+        //Debug.Log("Using piece...");
         CursorController.instance.currentAction.onEnd();
         CursorController.instance.currentAction = new SummonAction(CursorController.instance, storageType, slotPieces);
     }

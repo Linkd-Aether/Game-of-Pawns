@@ -5,15 +5,9 @@ using UnityEngine;
 public class Piece : MonoBehaviour
 {
     public Vector2Int location = new Vector2Int(-1, -1);
-    public Sprite icon = null;
     public Moveset type;
     public bool isEnemy = false;
     public bool moved = false;
-
-    private void Awake(){
-        SpriteRenderer renderer = gameObject.GetComponent<SpriteRenderer>();
-        icon = renderer.sprite;
-    }
 
     /**
     Places the piece at the specified location. If there is no space there, or there is a piece or obstacle, it
@@ -52,6 +46,12 @@ public class Piece : MonoBehaviour
 
     public void initSprite(){
         SpriteRenderer renderer = gameObject.GetComponent<SpriteRenderer>();
-        renderer.sprite = icon;
+        if (isEnemy){
+            renderer.sprite = type.enemySprite;
+        }
+        else {
+            renderer.sprite = type.playerSprite;
+        }
+        
     }
 }

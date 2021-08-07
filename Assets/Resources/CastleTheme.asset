@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa5d89c2bb4aac24cbcd08c46baee167, type: 3}
+  m_Name: CastleTheme
+  m_EditorClassIdentifier: 
+  darkSquare: {fileID: 8847787049292685380, guid: dcf2fcc3f67b9ec4caeda592d5e5d812, type: 3}
+  lightSquare: {fileID: -2533307376469427767, guid: dcf2fcc3f67b9ec4caeda592d5e5d812, type: 3}
+  background: {fileID: 0}

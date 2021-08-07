@@ -31,7 +31,7 @@ public class Inventory : MonoBehaviour
         Update the UI when a captured piece is added to the player's sleight of pieces
     */
     public void UpdateUIAdd(Moveset moveset){
-        Debug.Log("Adding to UI with " + capturedPieces + " pieces");
+        //Debug.Log("Adding to UI with " + capturedPieces + " pieces");
 
         //Determine which slot we need to add to or subtract from
         InventorySlot alteredSlot = getInventorySlotType(moveset);
@@ -43,8 +43,8 @@ public class Inventory : MonoBehaviour
             alteredSlot.slotPieces += 1;
             alteredSlot.pieceQuantity.text = alteredSlot.slotPieces.ToString();
 
-            Debug.Log("Total captured pieces: " + capturedPieces);
-            Debug.Log("Captured pieces of altered type: " + alteredSlot.slotPieces);
+            //Debug.Log("Total captured pieces: " + capturedPieces);
+            //Debug.Log("Captured pieces of altered type: " + alteredSlot.slotPieces);
         }
     }
 
@@ -53,7 +53,7 @@ public class Inventory : MonoBehaviour
     */
     public void UpdateUISubtract(Moveset moveset)
     {
-        Debug.Log("Subtracting from UI with " + capturedPieces + " pieces");
+        //Debug.Log("Subtracting from UI with " + capturedPieces + " pieces");
 
         //Determine which slot we need to add to or subtract from
         InventorySlot alteredSlot = getInventorySlotType(moveset);
@@ -67,8 +67,8 @@ public class Inventory : MonoBehaviour
             
             
             
-            Debug.Log("Total captured pieces: " + capturedPieces);
-            Debug.Log("Captured pieces of altered type: " + alteredSlot.slotPieces);
+            //Debug.Log("Total captured pieces: " + capturedPieces);
+            //Debug.Log("Captured pieces of altered type: " + alteredSlot.slotPieces);
         }
     }
 

@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91f9c95e82f1bbe4fbd5c4365948357b, type: 3}
   m_Name: BishopMoveset
   m_EditorClassIdentifier: 
+  playerSprite: {fileID: 8570372202592048047, guid: 0cb7b31e591184642841766b66156f2d, type: 3}
+  enemySprite: {fileID: -6056578268849008193, guid: 0cb7b31e591184642841766b66156f2d, type: 3}
