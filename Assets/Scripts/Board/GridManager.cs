@@ -105,6 +105,7 @@ public class GridManager : MonoBehaviour
         //Get the default piece prefab
 
         Piece newSummon = Instantiate(defaultPiece, new Vector3(tile.tilePosition.x, tile.tilePosition.y, -2), Quaternion.identity);
+        newSummon.transform.parent = GameObject.Find("EnemyPieceManager").transform;
 
         //Initialize qualities of the newly summoned piece
         newSummon.type = moveset;
