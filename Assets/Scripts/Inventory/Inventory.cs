@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class Inventory : MonoBehaviour
     public Piece queuedPiece;
     public int inventoryLimit;
     public int capturedPieces;
+    public Text summonLimit;
 
     /**
         Update the UI when a captured piece is added to the player's sleight of pieces
@@ -42,6 +44,8 @@ public class Inventory : MonoBehaviour
             capturedPieces += 1;
             alteredSlot.slotPieces += 1;
             alteredSlot.pieceQuantity.text = alteredSlot.slotPieces.ToString();
+
+            summonLimit.text = "Pieces: " + capturedPieces.ToString() + "/" + inventoryLimit;
 
             //Debug.Log("Total captured pieces: " + capturedPieces);
             //Debug.Log("Captured pieces of altered type: " + alteredSlot.slotPieces);
@@ -65,7 +69,7 @@ public class Inventory : MonoBehaviour
             alteredSlot.slotPieces -= 1;
             alteredSlot.pieceQuantity.text = alteredSlot.slotPieces.ToString();
             
-            
+            summonLimit.text = "Pieces: " + capturedPieces.ToString() + "/" + inventoryLimit;
             
             //Debug.Log("Total captured pieces: " + capturedPieces);
             //Debug.Log("Captured pieces of altered type: " + alteredSlot.slotPieces);
@@ -80,7 +84,8 @@ public class Inventory : MonoBehaviour
         //Iterate through each object until we find one with the moveset we want
         for (var i = 0; i < transform.childCount; i++)
         {
-            if (moveset == transform.GetChild(i).GetComponent<InventorySlot>().storageType)
+            InventorySlot slot = transform.GetChild(i).GetComponent<InventorySlot>();
+            if (slot != null && moveset == slot.storageType)
             {
                 return transform.GetChild(i).GetComponent<InventorySlot>();
             }
