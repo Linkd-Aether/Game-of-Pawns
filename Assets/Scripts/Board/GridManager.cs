@@ -132,4 +132,19 @@ public class GridManager : MonoBehaviour
         newSummon.type.ExecuteMove(newSummon, new Vector2Int(tile.tilePosition.x, tile.tilePosition.y));
         newSummon.moved = false;
     }
+
+    // Scans through the grid and spawns enemies on any of the marked spaces
+    public void ScanSpawners(int difficulty)
+    {
+        for(int x = 0; x < columns; x++)
+        {
+            for(int y = 0; y < rows; y++)
+            {
+                if(boardArray[x,y].pieceOnTile.gameObject.tag == "Spawner")
+                {
+                    Spawner.SpawnPieces(difficulty, new Vector2Int(x, y));
+                }
+            }
+        }
+    }
 }
